@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<!-- <constant name="struts.enable.DynamicMethodInvocation" value="false" 
+		/> <constant name="struts.devMode" value="true" /> <package name="default" 
+		namespace="/" extends="struts-default"> <default-action-ref name="index" 
+		/> <global-results> <result name="error">/WEB-INF/jsp/error.jsp</result> 
+		</global-results> <global-exception-mappings> <exception-mapping exception="java.lang.Exception" 
+		result="error" /> </global-exception-mappings> <action name="index"> <result 
+		type="redirectAction"> <param name="actionName">HelloWorld</param> <param 
+		name="namespace">/example</param> </result> </action> </package> <include 
+		file="example.xml" /> -->
+
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="true" />
+
+
+	<!-- token拦截器 -->
+	<package name="input" namespace="/" extends="struts-default">
+		<action name="input" class="com.xh.action.InputAction">
+			<result>/input.jsp</result>
+		</action>
+	</package>
+	<package name="user" namespace="/" extends="struts-default">
+		<action name="user" class="com.xh.action.UserAction">
+			<result>/addOK.jsp</result>
+			<interceptor-ref name="token"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="invalid.token">/error.jsp</result>
+		</action>
+	</package>
+
+
+	<!-- 自定义拦截 -->
+	<package name="test" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="my" class="com.xh.interceptor.MyInterceptor"></interceptor>
+		</interceptors>
+		<action name="test" class="com.xh.action.TestAction">
+			<result>/index.jsp</result>
+			<interceptor-ref name="my"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+	</package>
+
+
+	<!-- 自定义拦截 -->
+	<!-- 类型转换 -->
+	<!-- ?name=ti&age=88&d=2015-3-2 22:11:11 -->
+	<!-- ?interests=ddd&interests=dd&set=dsd&set=ddd -->
+	<!-- ?map[a]=a&map[b]=b -->
+	<!-- 自定义 类型转换 全局的名字要限定 ? 单个?p=3,6 list:?ps=9,8&ps=8,7 map:?points['a']=8,9&points['b']=9,10 -->
+	<package name="testt" namespace="/" extends="struts-default">
+		<action name="testt" class="com.xh.action.TestAction">
+			<result>/index.jsp</result>
+		</action>
+	</package>
+
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
